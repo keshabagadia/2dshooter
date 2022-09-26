@@ -88,8 +88,20 @@ public class CameraController : MonoBehaviour
             Vector3 targetPosition = GetTargetPosition();
             Vector3 mousePosition = GetPlayerMousePosition();
             Vector3 desiredCameraPosition = ComputeCameraPosition(targetPosition, mousePosition);
-
+        //to stay in the limits of the defined background
             transform.position = desiredCameraPosition;
+            if(transform.position.x>148){
+                transform.position= new Vector3(148, transform.position.y, transform.position.z);
+            }
+            if(transform.position.x<(-148)){
+                transform.position= new Vector3(-148, transform.position.y, transform.position.z);
+            }
+            if(transform.position.y>130){
+                transform.position= new Vector3(transform.position.x, 130, transform.position.z);
+            }
+            if(transform.position.y<(-130)){
+                transform.position= new Vector3(transform.position.x, -130, transform.position.z);
+            }
         }      
     }
 

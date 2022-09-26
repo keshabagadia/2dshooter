@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// This class handles the health state of a game object.
@@ -31,6 +32,10 @@ public class Health : MonoBehaviour
     public bool useLives = false;
     [Tooltip("Current number of lives this health has")]
     public int currentLives = 3;
+    // public List<Image> hearts;
+    // public Sprite fullHeart;
+    // public Sprite emptyHeart;
+
     [Tooltip("The maximum number of lives this health can have")]
     public int maximumLives = 5;
 
@@ -44,6 +49,7 @@ public class Health : MonoBehaviour
     /// </summary>
     void Start()
     {
+        //Debug.Log(hearts.Count);
         SetRespawnPoint(transform.position);
     }
 
@@ -58,6 +64,7 @@ public class Health : MonoBehaviour
     void Update()
     {
         InvincibilityCheck();
+        //UpdateHearts();
     }
 
     // The specific game time when the health can be damged again
@@ -260,4 +267,24 @@ public class Health : MonoBehaviour
         }
         Destroy(this.gameObject);
     }
+
+    /// <summary>
+    /// Description:
+    /// Handles heart display
+    /// Inputs:
+    /// none
+    /// Returns:
+    /// void (no return)
+    /// </summary>
+    // void UpdateHearts()
+    // {
+    //     foreach (Image img in hearts)
+    //     {
+    //         img.sprite = emptyHeart;
+    //     }
+    //     for (int i = 0; i <currentLives; i++)
+    //     {
+    //         hearts[i].sprite = fullHeart;
+    //     }
+    // }
 }

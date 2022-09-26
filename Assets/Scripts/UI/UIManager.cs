@@ -140,13 +140,32 @@ public class UIManager : MonoBehaviour
         {
             if (isPaused)
             {
-                //SetActiveAllPages(false);
+                SetActiveAllPages(false);
                 Time.timeScale = 1;
                 isPaused = false;
             }
             else
             {
-                //GoToPage(pausePageIndex);
+                GoToPage(pausePageIndex);
+                Time.timeScale = 0;
+                isPaused = true;
+            }
+        }      
+    }
+
+    public void TogglePause2()
+    {
+        if (allowPause)
+        {
+            if (isPaused)
+            {
+                SetActiveAllPages(false);
+                Time.timeScale = 1;
+                isPaused = false;
+            }
+            else
+            {
+                // GoToPage(pausePageIndex);
                 Time.timeScale = 0;
                 isPaused = true;
             }

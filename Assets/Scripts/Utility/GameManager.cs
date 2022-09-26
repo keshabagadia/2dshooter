@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("The player gameobject")]
     public GameObject player = null;
 
+    [Tooltip("The power-up gameobject")]
+    public GameObject powerUp = null;
+
     [Header("Scores")]
     // The current player score in the game
     [Tooltip("The player's score")]
@@ -50,18 +53,25 @@ public class GameManager : MonoBehaviour
     public int enemiesToDefeat = 10;
     
     // The number of enemies defeated in game
-    private int enemiesDefeated = 0;
+    public int enemiesDefeated {get; private set;}
 
     [Tooltip("Whether or not to print debug statements about whether the game can be won or not according to the game manager's" +
         " search at start up")]
     public bool printDebugOfWinnableStatus = true;
     [Tooltip("Page index in the UIManager to go to on winning the game")]
-    public int gameVictoryPageIndex = 0;
+    public int gameVictoryPageIndex = 2;
     [Tooltip("The effect to create upon winning the game")]
     public GameObject victoryEffect;
 
+    [Tooltip("Page index in the UIManager to go to on collecting power-up")]
+    public int powerUpPageIndex = 3;
+    [Tooltip("The effect to create upon winning the game")]
+    public GameObject powerUpEffect;
+
     //The number of enemies observed by the game manager in this scene at start up"
     private int numberOfEnemiesFoundAtStart;
+    public bool lvlCleared=false;
+    public bool powerUpCollected = false;
 
     /// <summary>
     /// Description:
@@ -107,6 +117,10 @@ public class GameManager : MonoBehaviour
     /// Returns:
     /// void (no return)
     /// </summary>
+
+    private void Update(){
+        CheckLevelCleared();
+    }
     void HandleStartUp()
     {
         if (PlayerPrefs.HasKey("highscore"))
@@ -191,6 +205,23 @@ public class GameManager : MonoBehaviour
         enemiesDefeated++;
         if (enemiesDefeated >= enemiesToDefeat && gameIsWinnable)
         {
+            if(powerUp!=null){
+            powerUp.SetActive(true);}
+        }
+    }
+    public void CheckLevelCleared()
+    {
+        if(powerUpCollected){
+            powerUpCollected = false;
+            uiManager.TogglePause2();
+            uiManager.GoToPage(powerUpPageIndex);
+            if (powerUpEffect!= null)
+            {
+                Instantiate(powerUpEffect, transform.position, transform.rotation, null);
+            }
+        }
+
+        if(lvlCleared){
             LevelCleared();
         }
     }
@@ -304,6 +335,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LevelCleared()
     {
+        lvlCleared = false;
         PlayerPrefs.SetInt("score", score);
         if (uiManager != null)
         {
@@ -344,7 +376,8 @@ public class GameManager : MonoBehaviour
         }
         if (uiManager != null)
         {
-            uiManager.allowPause = false;
+            // uiManager.allowPause = false;
+            uiManager.TogglePause2();
             uiManager.GoToPage(gameOverPageIndex);
         }
     }

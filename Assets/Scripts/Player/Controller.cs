@@ -232,6 +232,19 @@ public class Controller : MonoBehaviour
             // Move the player's transform
             transform.position = transform.position + (movement * Time.deltaTime * moveSpeed);
         }
+
+            if(transform.position.x>168){
+                transform.position= new Vector3(-168, transform.position.y, transform.position.z);
+            }
+            if(transform.position.x<(-168)){
+                transform.position= new Vector3(168, transform.position.y, transform.position.z);
+            }
+            if(transform.position.y>140){
+                transform.position= new Vector3(transform.position.x, -140, transform.position.z);
+            }
+            if(transform.position.y<(-140)){
+                transform.position= new Vector3(transform.position.x, 140, transform.position.z);
+            }
     }
 
     /// <summary>

@@ -10,7 +10,7 @@ public class PauseController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        uiManager.TogglePause();
+        uiManager.TogglePause2();
         inputAction.performed += unpause =>
         {
             StartCoroutine(unpauseRoutine());
@@ -25,8 +25,8 @@ public class PauseController : MonoBehaviour
 
     IEnumerator unpauseRoutine()
     {
-        uiManager.TogglePause();
+        uiManager.TogglePause2();
         yield return new WaitForSeconds(0.1f);
-        uiManager.TogglePause();
+        uiManager.TogglePause2();
     }
 }

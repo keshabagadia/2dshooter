@@ -100,7 +100,7 @@ public class Damage : MonoBehaviour
                 }
                 if (destroyAfterDamage)
                 {
-                    if (gameObject.GetComponent<Enemy>() != null)
+                    if (gameObject.GetComponent<Enemy>() != null && collidedHealth.teamId==0)
                     {
                         gameObject.GetComponent<Enemy>().DoBeforeDestroy();
                     }

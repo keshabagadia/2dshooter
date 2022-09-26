@@ -8,10 +8,26 @@ using UnityEngine;
 public class DirectionalMover : MonoBehaviour
 {
     [Header("Settings")]
-    [Tooltip("The direction to move in")]
-    public Vector3 direction = Vector3.down;
+    //[Tooltip("The direction to move in")]
+    public Vector3 direction1 = Vector3.down;
+    private Vector3 direction2;
+    //private Vector3 direction3, direction4;
+
     [Tooltip("The speed to move at")]
     public float speed = 5.0f;
+    // private bool flag = false;
+    private int count = 0;
+
+
+    void Start(){
+        transform.position = new Vector3(-155,0,-10);
+        direction2 = direction1;
+        direction2[1] = -direction1[1];
+        // direction3 = direction1;
+        // direction3[0] = -direction1[0];
+        // direction4 = direction3;
+        // direction4[1] = -direction3[1];
+    }
 
     /// <summary>
     /// Description:
@@ -23,7 +39,23 @@ public class DirectionalMover : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        Move();
+        if(transform.position.x<155&&transform.position.x>-156){
+            if(count<50){
+                Move(direction1);
+            } else{
+                Move(direction2);
+            }
+        } else{
+            direction2[0]=-direction2[0];
+            direction1[0]=-direction1[0];
+            Move(direction1);
+        //     if(count<50){
+        //         Move(direction3);
+        //     } else{
+        //         Move(direction4);
+        //     }
+
+        }
     }
 
     /// <summary>
@@ -34,8 +66,14 @@ public class DirectionalMover : MonoBehaviour
     /// Returns: 
     /// void (no return)
     /// </summary>
-    private void Move()
+    private void Move(Vector3 direction)
     {
+        if(count<100){
+            count ++;
+        }else{
+            count = 0;
+        }
         transform.position = transform.position + direction.normalized * speed * Time.deltaTime;
     }
+ 
 }
